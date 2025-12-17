@@ -1,0 +1,1 @@
+#equipment stats and wearables go here
