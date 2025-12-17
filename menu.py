@@ -3,9 +3,21 @@
 import pygame
 
 def run_menu(screen, clock):
-    start_button_rect = pygame.Rect(300, 200, 200, 50)
+    BUTTON_WIDTH = 200
+    BUTTON_HEIGHT = 50
+
+    #Button
+    start_button_rect = pygame.Rect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT)
+    start_button_rect.center = screen.get_rect().center
+
+    # Title text
+    title_font = pygame.font.Font(None, 96)
+    title_surface = title_font.render("CULT QUEST", True, (255,255,255))
+    title_rect = title_surface.get_rect(center=(screen.get_width() // 2, start_button_rect.top - 60))
+    
+    #Button Text
     font = pygame.font.Font(None, 40)
-    text_surface = font.render("Get to work", True, (255,255,255))
+    text_surface = font.render("START", True, (255,255,255))
     text_rect = text_surface.get_rect(center=start_button_rect.center)
     
 
@@ -21,6 +33,7 @@ def run_menu(screen, clock):
         screen.fill((50, 50, 50))
         pygame.draw.rect(screen, (0,200,0), start_button_rect)
         screen.blit(text_surface, text_rect)
+        screen.blit(title_surface, title_rect)
 
         pygame.display.flip()
         clock.tick(60)
