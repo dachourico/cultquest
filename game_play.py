@@ -3,16 +3,16 @@
 import os
 import pygame
 
-PLAYER_SIZE = 32
-PLAYER_SPEED = 220  # pixels per second
+PLAYER_SIZE = 64
+PLAYER_SPEED = 260  # pixels per second
 
-DEBUG_DRAW_COLLIDERS = True
+DEBUG_DRAW_COLLIDERS = False
 
 
 
 def run_game(screen, clock):
     
-    bg_path = os.path.join(os.path.dirname(__file__), "assets", "house.webp")
+    bg_path = os.path.join(os.path.dirname(__file__), "assets", "home_bg.png")
     background = pygame.image.load(bg_path).convert()  # use convert_alpha() if it has transparency
     background = pygame.transform.scale(background, screen.get_size())
 
@@ -20,12 +20,8 @@ def run_game(screen, clock):
     player_rect = pygame.Rect(0,0, PLAYER_SIZE, PLAYER_SIZE)
     player_rect.center = screen.get_rect().center
 
-    # Example colliders (walls). Later these come from your tilemap.
-    walls = [
-        pygame.Rect(300, 150, 200, 40),
-        pygame.Rect(200, 350, 40, 200),
-        pygame.Rect(50, 500, 700, 30),
-    ]
+
+    
 
     while True:
         dt = clock.tick(60) / 1000.0  # seconds since last frame
@@ -56,47 +52,15 @@ def run_game(screen, clock):
             vx *= 0.7071
             vy *= 0.7071
 
-        # --- move + collide (axis-separated) ---
+# --- APPLY MOVEMENT HERE ---
         player_rect.x += int(vx * dt)
-        for wall in walls:
-            if player_rect.colliderect(wall):
-                if vx > 0:  # moving right
-                    player_rect.right = wall.left
-                elif vx < 0:  # moving left
-                    player_rect.left = wall.right
-
         player_rect.y += int(vy * dt)
-        for wall in walls:
-            if player_rect.colliderect(wall):
-                if vy > 0:  # moving down
-                    player_rect.bottom = wall.top
-                elif vy < 0:  # moving up
-                    player_rect.top = wall.bottom
-
         # --- draw ---
         screen.blit(background, (0,0))
 
-        if DEBUG_DRAW_COLLIDERS:
-            for wall in walls:
-                pygame.draw.rect(screen, (120,120,120), wall, 2)
-
-        # draw walls
-        for wall in walls:
-            pygame.draw.rect(screen, (120, 120, 120), wall, 2)
-            walls = [
-                pygame.Rect(0, 0, 1280, 40),        # top wall
-                pygame.Rect(0, 0, 40, 720),         # left wall
-                pygame.Rect(0, 680, 1280, 40),      # bottom wall
-                pygame.Rect(1240, 0, 40, 720),      # right wall
-
-                pygame.Rect(870, 70, 222, 220),     # fireplace
-                pygame.Rect(520, 210, 248, 130),    # table
-                pygame.Rect(980, 420, 260, 220),    # bed
-                pygame.Rect(75, 190, 211, 160), #tv
-                ]
-
-
         
+
+
 
         # draw player
         pygame.draw.rect(screen, (50, 180, 255), player_rect)

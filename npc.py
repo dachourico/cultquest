@@ -1,2 +1,14 @@
 #npc info goes here.
-# Character list: Drug Dealer, old lady Gertrude, tweaker, soccer mom, meathead, nerd, hottie, business Chad
+
+
+class NPC:
+    # Character list: 
+    # Drug Dealer, 
+    # old lady Gertrude, 
+    # tweaker, 
+    # soccer mom, 
+    # meathead, 
+    # nerd, 
+    # hottie, 
+    # business Chad
+    pass
